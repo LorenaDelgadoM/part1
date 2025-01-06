@@ -1,3 +1,4 @@
+import { use } from 'react'
 import { useState } from 'react'
 
 const App = () => {
@@ -5,22 +6,32 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [all, setAll] =useState(0)
+  const [avg, setAvg] = useState(0)
+  const [porc, setPorc] = useState(0)
 
   const clickGoodButton = () => {
-
-    setGood(good+1)
+    const updateGood = good+1;
+    setGood(updateGood)
+    setAll(updateGood+neutral+bad)
+    setAvg ((good - bad) /(updateGood+neutral+bad))
+    setPorc ( (good * 100) /(updateGood+neutral+bad))
   }
   
   const clickNeutralButton = () =>{
-
-    setNeutral(neutral+1)
-
+    const updateNeutral = neutral+1;
+    setNeutral(updateNeutral)
+    setAll(good+updateNeutral+bad)
+    setAvg ((good - bad )/(good+updateNeutral+bad))
+    setPorc ( (good * 100) /(good+updateNeutral+bad))
   }
 
   const clickBadButton = () => {
-
-    setBad(bad+1)
-
+    const updateBad = bad+1;
+    setBad(updateBad)
+    setAll(good+neutral+updateBad)
+    setAvg ((good - bad) / (good+neutral+updateBad))
+    setPorc ( (good * 100) / (good+neutral+updateBad))
   }
   return (
     <div>
@@ -32,6 +43,9 @@ const App = () => {
     <p>Good: {good}</p>
     <p>Neutral: {neutral}</p>
     <p>Bad: {bad}</p>
+    <p>All: {all}</p>
+    <p>Average: {avg}</p>
+    <p>Positive: {porc}%</p>
     </div>
   )
 }
