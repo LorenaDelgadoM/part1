@@ -1,77 +1,38 @@
-const Header = (course) => {
-   return (
-      <div>
-        <h1>{course.title}</h1>
-      </div>
-
-    )
-
-}
-
-const Part = (parts) => {
-    
-  return (
-    <div>
-      <p>
-      
-      {parts.part} {parts.exercise}
-      </p>
-      
-    </div>
-   ) 
-
-
-
-}
-
-const Content = (parts) => {
-  console.log(parts.courses[0].name)
- 
-  return (
-    <div>
-      <Part part={parts.courses[0].name} exercise ={parts.courses[0].exercises}/>
-      <Part part={parts.courses[1].name} exercise ={parts.courses[1].exercises}/>
-      <Part part={parts.courses[2].name} exercise ={parts.courses[2].exercises}/>
-    </div>
-  )
- 
-}
-
-const Total = (sum) => {
-
-  return (
-    <div>
-        <p>Number of exercises {sum.total}</p>
-    </div>
-  )
-
-
-}
+import { useState } from 'react'
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
+  // guarda los clics de cada botón en su propio estado
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const clickGoodButton = () => {
+
+    setGood(good+1)
+  }
+  
+  const clickNeutralButton = () =>{
+
+    setNeutral(neutral+1)
+
+  }
+
+  const clickBadButton = () => {
+
+    setBad(bad+1)
+
   }
   return (
-    <>
-      <Header title={course.name} />
-      <Content courses ={course.parts}/>
-      <Total total= {course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises}/>
-    </>
+    <div>
+    <h1>Give Feedback</h1>
+    <button onClick= {clickGoodButton}>Good</button>
+    <button onClick= {clickNeutralButton}>Neutral</button>
+    <button onClick= {clickBadButton}>Bad</button>
+    <h2>Statistics</h2>
+    <p>Good: {good}</p>
+    <p>Neutral: {neutral}</p>
+    <p>Bad: {bad}</p>
+    </div>
   )
 }
 
